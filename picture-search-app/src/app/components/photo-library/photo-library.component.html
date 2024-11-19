@@ -1,0 +1,25 @@
+<div class="photo-library-container">
+  <div *ngIf="loading$ | async" class="loading-overlay">
+    <span>Loading...</span>
+  </div>
+
+  <div *ngIf="!(loading$ | async)" class="photo-gallery">
+    <div *ngFor="let photo of photos$ | async" class="photo-card">
+      <img
+        [src]="photo.urls.small"
+        [alt]="photo.alt_description"
+        class="photo"
+      />
+    </div>
+  </div>
+
+  <div *ngIf="total$ | async as total" class="pagination">
+    <button (click)="onPageChange('previous')" [disabled]="skip <= 0">
+      Previous
+    </button>
+    <span>{{ skip / top + 1 }} / {{ total / top }}</span>
+    <button (click)="onPageChange('next')" [disabled]="skip + top >= total">
+      Next
+    </button>
+  </div>
+</div>

@@ -1,0 +1,18 @@
+<div class="app-container">
+  <div [ngClass]="isSearchSubmitted ? 'search-form-top-position' : null">
+    <input
+      type="text"
+      [(ngModel)]="searchLiteral"
+      placeholder="Search images..."
+      (keydown.enter)="onSearch(searchLiteral)"
+      class="search-input"
+    />
+    <button (click)="onSearch(searchLiteral)" class="search-button">
+      Search
+    </button>
+  </div>
+  <photo-library
+    [searchLiteral]="searchLiteral"
+    *ngIf="isSearchSubmitted"
+  ></photo-library>
+</div>
