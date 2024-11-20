@@ -5,6 +5,9 @@ import { provideStore } from '@ngrx/store';
 import { appConfig } from './app/app.config';
 import { EffectsModule, provideEffects } from '@ngrx/effects';
 import { PhotoEffects } from './app/store/effects';
+import { RouterModule } from '@angular/router';
+import { importProvidersFrom } from '@angular/core';
+import { routes } from './app/app.routes';
 
 bootstrapApplication(
   AppComponent,
@@ -12,8 +15,9 @@ bootstrapApplication(
     ...appConfig,
     providers: [
       // provideState({ name: 'photo', reducer: photoReducer }),
+      provideEffects(PhotoEffects),
+      importProvidersFrom(RouterModule.forRoot(routes)),
       provideStore({ photo: photoReducer }),
-      provideEffects(PhotoEffects)
       // EffectsModule.forRoot([PhotoEffects]),
     ],
   }
