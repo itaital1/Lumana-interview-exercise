@@ -14,19 +14,9 @@ export const selectLoading = createSelector(
   (state: State) => state?.loading
 );
 
-export const selectError = createSelector(
-  selectPhotoState,
-  (state: State) => state.error
-);
-
 export const selectTotal = createSelector(
   selectPhotoState,
   (state: State) => state.total
-);
-
-export const selectQuery = createSelector(
-  selectPhotoState,
-  (state: State) => state.query
 );
 
 export const selectSkip = createSelector(

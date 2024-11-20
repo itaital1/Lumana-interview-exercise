@@ -1,10 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Observable, Subject } from 'rxjs';
-import {
-  debounceTime,
-  switchMap,
-  distinctUntilChanged,
-} from 'rxjs/operators';
+import { debounceTime, switchMap, distinctUntilChanged } from 'rxjs/operators';
 import axios from 'axios';
 
 @Injectable({
@@ -22,10 +18,6 @@ export class PhotoSearchService {
         switchMap((query) => this.searchPhotos(query)) 
       )
       .subscribe();
-  }
-
-  searchNewQuery(query: string): void {
-    this.searchSubject.next(query);
   }
 
   /**
@@ -52,16 +44,5 @@ export class PhotoSearchService {
           observer.error('Error fetching data from Unsplash API');
         });
     });
-  }
-
-  /**
-   * Load more photos based on the query.
-   */
-  loadMorePhotos(
-    query: string,
-    top: number,
-    skip: number
-  ): Observable<any> {
-    return this.searchPhotos(query, top, skip);
   }
 }

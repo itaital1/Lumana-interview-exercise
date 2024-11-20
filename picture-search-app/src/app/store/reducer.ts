@@ -3,23 +3,19 @@ import * as PhotoActions from './actions';
 import { Photo } from '../models/photo.model';
 
 export interface State {
-  query: string;
   photos: Photo[];
   total: number;
   loading: boolean;
   skip: number;
   top: number;
-  error: string | null;
 }
 
 export const initialState: State = {
-  query: '',
   photos: [],
   total: 0,
   loading: false,
   skip: 0,
   top: 10,
-  error: null,
 };
 
 export const photoReducer = createReducer(

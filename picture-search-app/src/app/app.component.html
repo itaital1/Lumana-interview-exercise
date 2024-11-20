@@ -1,9 +1,15 @@
 <div class="app-container">
-  <div [ngClass]="isSearchSubmitted ? 'search-form-top-position' : null">
+  <div
+    class="search-form"
+    [ngClass]="isSearchSubmitted ? 'after-search' : null"
+  >
+    <h1 *ngIf="!isSearchSubmitted" class="headline">
+      Lumana Interview Exercise
+    </h1>
     <input
       type="text"
       [(ngModel)]="searchLiteral"
-      placeholder="Search images..."
+      placeholder="Enter image description"
       (keydown.enter)="onSearch(searchLiteral)"
       class="search-input"
     />

@@ -1,6 +1,6 @@
 <div class="photo-library-container">
   <div *ngIf="loading$ | async" class="loading-overlay">
-    <span>Loading...</span>
+    <!-- <mat-progress-spinner mode="indeterminate"></mat-progress-spinner> -->
   </div>
 
   <div *ngIf="!(loading$ | async)" class="photo-gallery">
@@ -17,7 +17,7 @@
     <button (click)="onPageChange('previous')" [disabled]="skip <= 0">
       Previous
     </button>
-    <span>{{ skip / top + 1 }} / {{ total / top }}</span>
+    <span>{{ skip / top + 1 }} / {{ total / top | number: '1.0-0' }}</span>
     <button (click)="onPageChange('next')" [disabled]="skip + top >= total">
       Next
     </button>

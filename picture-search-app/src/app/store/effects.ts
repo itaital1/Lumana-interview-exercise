@@ -1,4 +1,4 @@
-import { Injectable } from '@angular/core';
+import { inject, Injectable } from '@angular/core';
 import { Actions, createEffect, ofType } from '@ngrx/effects';
 import * as PhotoActions from './actions';
 import { PhotoSearchService } from '../services/photoSearch.service';
@@ -7,10 +7,8 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 @Injectable()
 export class PhotoEffects {
-  constructor(
-    private actions$: Actions,
-    private photoSearchService: PhotoSearchService
-  ) {}
+  private actions$ = inject(Actions); 
+  private photoSearchService = inject(PhotoSearchService); 
 
   loadPhotos$ = createEffect(() =>
     this.actions$.pipe(
@@ -29,3 +27,4 @@ export class PhotoEffects {
     )
   );
 }
+

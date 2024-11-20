@@ -15,15 +15,17 @@ import { Store, StoreModule } from '@ngrx/store';
     RouterOutlet,
     CommonModule,
     PhotoLibraryComponent,
-    StoreModule
-  ]
+    StoreModule,
+  ],
 })
 export class AppComponent {
   searchLiteral: string = '';
   isSearchSubmitted: boolean = false;
 
   onSearch(searchLiteral: string) {
-    this.searchLiteral = searchLiteral;
-    this.isSearchSubmitted = true;
+    if (this.searchLiteral.length > 0) {
+      this.searchLiteral = searchLiteral;
+      this.isSearchSubmitted = true;
+    }
   }
 }
