@@ -10,7 +10,7 @@ import { Observable } from 'rxjs';
 import * as PhotoActions from '../../store/actions';
 import * as fromPhoto from '../../store/selectors';
 import { CommonModule } from '@angular/common';
-// import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { ActivatedRoute, Router } from '@angular/router';
 
 @Component({
   selector: 'photo-library',
@@ -19,7 +19,7 @@ import { CommonModule } from '@angular/common';
   standalone: true,
   imports: [CommonModule],
 })
-export class PhotoLibraryComponent implements OnInit, OnChanges {
+export class PhotoLibraryComponent implements OnInit {
   @Input() searchLiteral: string = '';
 
   top = 20;
@@ -27,25 +27,22 @@ export class PhotoLibraryComponent implements OnInit, OnChanges {
   skip$: Observable<number>;
   photos$: Observable<any[]>;
   total$: Observable<number>;
+  error$: Observable<boolean>;
   loading$: Observable<boolean>;
 
-  constructor(private store: Store<any>) {
+  constructor(private store: Store, private route: ActivatedRoute) {
     this.skip$ = this.store.select(fromPhoto.selectSkip);
     this.total$ = this.store.select(fromPhoto.selectTotal);
+    this.error$ = this.store.select(fromPhoto.selectError);
     this.photos$ = this.store.select(fromPhoto.selectPhotos);
     this.loading$ = this.store.select(fromPhoto.selectLoading);
   }
 
   ngOnInit(): void {
-    // this.skip$.pipe(take(1)).subscribe((skip) => {
-    //   this.skip = skip;
-    // });
-  }
-
-  ngOnChanges(changes: SimpleChanges): void {
-    if (changes['searchLiteral'] && this.searchLiteral) {
+    this.route.queryParams.subscribe((params) => {
+      this.searchLiteral = params['search'] || '';
       this.onSearch(this.searchLiteral);
-    }
+    });
   }
 
   onSearch(query: string): void {

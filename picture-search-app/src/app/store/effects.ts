@@ -7,8 +7,8 @@ import { catchError, map, switchMap, tap } from 'rxjs/operators';
 
 @Injectable()
 export class PhotoEffects {
-  private actions$ = inject(Actions); 
-  private photoSearchService = inject(PhotoSearchService); 
+  private actions$ = inject(Actions);
+  private photoSearchService = inject(PhotoSearchService);
 
   loadPhotos$ = createEffect(() =>
     this.actions$.pipe(
@@ -21,10 +21,9 @@ export class PhotoEffects {
               total: data.total,
             })
           ),
-          catchError((error) => of(PhotoActions.searchPhotosFailure({ error })))
+          catchError((error) => of(PhotoActions.searchPhotosFailure()))
         );
       })
     )
   );
 }
-

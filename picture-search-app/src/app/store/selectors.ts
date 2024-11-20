@@ -1,6 +1,5 @@
-// photo.selectors.ts
-import { createFeatureSelector, createSelector } from '@ngrx/store';
 import { State } from './reducer';
+import { createFeatureSelector, createSelector } from '@ngrx/store';
 
 export const selectPhotoState = createFeatureSelector<State>('photo');
 
@@ -22,4 +21,9 @@ export const selectTotal = createSelector(
 export const selectSkip = createSelector(
   selectPhotoState,
   (state: State) => state.skip
+);
+
+export const selectError = createSelector(
+  selectPhotoState,
+  (state: State) => state.error
 );

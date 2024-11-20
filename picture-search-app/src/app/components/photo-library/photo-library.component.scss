@@ -8,39 +8,72 @@
   box-sizing: border-box;
 
   .loading-overlay {
-    position: absolute;
+    position: fixed;
     top: 0;
     left: 0;
     right: 0;
     bottom: 0;
+    background: rgba(0, 0, 0, 0.5);
     display: flex;
     justify-content: center;
     align-items: center;
-    background: rgba(0, 0, 0, 0.5);
-    color: white;
-    font-size: 1.5em;
+    z-index: 9999;
   }
 
-  .photo-gallery {
-    width: 100%;
+  .spinner {
+    border-radius: 50%;
+    border: 0.5em solid rgba(255, 255, 255, 0.3);
+    
+    width: 4vw;
+    height: 8.8vh;
+    border-top: 0.5em solid #4285f4;
+    animation: spin 1s linear infinite;
+  }
+
+  @keyframes spin {
+    0% {
+      transform: rotate(0deg);
+    }
+    100% {
+      transform: rotate(360deg);
+    }
+  }
+
+  .error-message-container {
     height: 100%;
-    display: grid;
-    overflow-y: auto;
-    grid-row-gap: 2vh;
-    grid-column-gap: 1vw;
-    grid-template-columns: repeat(5, 1fr);
+    display: flex;
+    align-items: center;
 
-    .photo-card {
+    .error-text {
+      font-size: 2em;
+      font-family: monospace;
+    }
+  }
+
+  .photos-container {
+    display: contents;
+
+    .photo-gallery {
+      width: 100%;
       height: 100%;
-      display: flex;
-      overflow: hidden;
-      align-items: center;
-      justify-content: center;
+      display: grid;
+      overflow-y: auto;
+      grid-row-gap: 2vh;
+      grid-column-gap: 1vw;
+      grid-template-columns: repeat(5, 1fr);
 
-      .photo {
-        width: 100%;
+      .photo-card {
         height: 100%;
-        object-fit: cover;
+        display: flex;
+        overflow: hidden;
+        align-items: center;
+        justify-content: center;
+
+        .photo {
+          width: 100%;
+          height: 100%;
+          object-fit: cover;
+        }
       }
     }
   }

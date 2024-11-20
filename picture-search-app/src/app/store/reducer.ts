@@ -3,38 +3,41 @@ import * as PhotoActions from './actions';
 import { Photo } from '../models/photo.model';
 
 export interface State {
-  photos: Photo[];
-  total: number;
-  loading: boolean;
-  skip: number;
   top: number;
+  skip: number;
+  total: number;
+  error: boolean;
+  photos: Photo[];
+  loading: boolean;
 }
 
 export const initialState: State = {
-  photos: [],
-  total: 0,
-  loading: false,
-  skip: 0,
   top: 10,
+  skip: 0,
+  total: 0,
+  photos: [],
+  error: false,
+  loading: false,
 };
 
 export const photoReducer = createReducer(
   initialState,
   on(PhotoActions.searchPhotos, (state) => ({
     ...state,
+    error: false,
     loading: true,
-    error: null,
   })),
   on(PhotoActions.searchPhotosSuccess, (state, { results, total }) => ({
     ...state,
-    photos: results,
     total,
-    loading: false,
+    error: false,
+    loading: false,  
+    photos: results,
     skip: state.skip + state.top,
   })),
-  on(PhotoActions.searchPhotosFailure, (state, { error }) => ({
+  on(PhotoActions.searchPhotosFailure, (state) => ({
     ...state,
+    error: true,
     loading: false,
-    error,
-  })),
+  }))
 );

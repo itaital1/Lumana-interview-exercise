@@ -1,25 +1,36 @@
 <div class="photo-library-container">
   <div *ngIf="loading$ | async" class="loading-overlay">
-    <!-- <mat-progress-spinner mode="indeterminate"></mat-progress-spinner> -->
+    <div class="spinner"></div>
   </div>
 
-  <div *ngIf="!(loading$ | async)" class="photo-gallery">
-    <div *ngFor="let photo of photos$ | async" class="photo-card">
-      <img
-        [src]="photo.urls.small"
-        [alt]="photo.alt_description"
-        class="photo"
-      />
+  <div
+    *ngIf="error$ | async as error; else showPhotos"
+    class="error-message-container"
+  >
+    <p class="error-text">Error occurred in image loading</p>
+  </div>
+
+  <ng-template #showPhotos>
+    <div *ngIf="!(loading$ | async)" class="photos-container">
+      <div class="photo-gallery">
+        <div *ngFor="let photo of photos$ | async" class="photo-card">
+          <img
+            [src]="photo.urls.small"
+            [alt]="photo.alt_description"
+            class="photo"
+          />
+        </div>
+      </div>
+
+      <div *ngIf="total$ | async as total" class="pagination">
+        <button (click)="onPageChange('previous')" [disabled]="skip <= 0">
+          Previous
+        </button>
+        <span>{{ skip / top + 1 }} / {{ total / top | number : "1.0-0" }}</span>
+        <button (click)="onPageChange('next')" [disabled]="skip + top >= total">
+          Next
+        </button>
+      </div>
     </div>
-  </div>
-
-  <div *ngIf="total$ | async as total" class="pagination">
-    <button (click)="onPageChange('previous')" [disabled]="skip <= 0">
-      Previous
-    </button>
-    <span>{{ skip / top + 1 }} / {{ total / top | number: '1.0-0' }}</span>
-    <button (click)="onPageChange('next')" [disabled]="skip + top >= total">
-      Next
-    </button>
-  </div>
+  </ng-template>
 </div>

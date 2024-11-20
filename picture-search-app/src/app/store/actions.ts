@@ -11,7 +11,4 @@ export const searchPhotosSuccess = createAction(
   props<{ results: Photo[]; total: number }>()
 );
 
-export const searchPhotosFailure = createAction(
-  'Search Photos Failure',
-  props<{ error: string }>()
-);
+export const searchPhotosFailure = createAction('Search Photos Failure');

@@ -38,7 +38,6 @@ export class AppComponent {
 
       this.router.navigate([], {
         queryParams: { search: this.searchLiteral },
-        queryParamsHandling: 'merge',
       });
     }
   }

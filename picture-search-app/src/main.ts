@@ -14,17 +14,9 @@ bootstrapApplication(
   {
     ...appConfig,
     providers: [
-      // provideState({ name: 'photo', reducer: photoReducer }),
       provideEffects(PhotoEffects),
-      importProvidersFrom(RouterModule.forRoot(routes)),
       provideStore({ photo: photoReducer }),
-      // EffectsModule.forRoot([PhotoEffects]),
+      importProvidersFrom(RouterModule.forRoot(routes))
     ],
   }
-  // StoreModule.forRoot({ photo: photoReducSer }),
-  // providers: [
-  //   StoreModule.forRoot({ photo: photoReducer }),
-  //   EffectsModule.forRoot([PhotoEffects]),
-  // ],
-  // }
 ).catch((err) => console?.error(err));

@@ -32,7 +32,6 @@ app.get("/api/search", async (req, res) => {
         per_page: per_page,
       },
     });
-
     res.json(response.data);
   } catch (error) {
     console.error(error);
