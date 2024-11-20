@@ -8,10 +8,10 @@
   background-color: #fff7eb;
 }
 
-.headline{
-  margin:0;
+.headline {
+  margin: 0;
   font-family: cursive;
-} 
+}
 
 .search-form {
   gap: 3vh;
@@ -53,6 +53,30 @@
 
 .search-button:hover {
   background-color: #357ae8;
+}
+
+.search-button:active {
+  transform: scale(0.9);
+}
+
+.back-button:active {
+  transform: scale(0.9);
+}
+
+.back-button {
+  left: 2vw;
+  border: none;
+  cursor: pointer;
+  background: none;
+  position: absolute;
+  width: fit-content;
+  display: inline-flex;
+
+  .logo {
+    width: 2vw;
+    height: 4.3vh;
+    border: 0.1em solid black;
+  }
 }
 
 .search-container-top-position {

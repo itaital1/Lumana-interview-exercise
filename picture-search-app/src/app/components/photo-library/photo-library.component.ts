@@ -41,7 +41,9 @@ export class PhotoLibraryComponent implements OnInit {
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
       this.searchLiteral = params['search'] || '';
-      this.onSearch(this.searchLiteral);
+      if (this.searchLiteral.length > 0) {
+        this.onSearch(this.searchLiteral);
+      }
     });
   }
 

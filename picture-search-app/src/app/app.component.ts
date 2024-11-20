@@ -41,4 +41,12 @@ export class AppComponent {
       });
     }
   }
+
+  backToMain() {
+    this.router.navigate([], {
+      queryParams: {},
+    });
+    this.searchLiteral = '';
+    this.isSearchSubmitted = false;
+  }
 }

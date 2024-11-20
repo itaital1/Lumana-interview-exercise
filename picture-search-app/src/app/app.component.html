@@ -3,6 +3,14 @@
     class="search-form"
     [ngClass]="isSearchSubmitted ? 'after-search' : null"
   >
+    <button
+      *ngIf="isSearchSubmitted"
+      class="back-button"
+      (click)="backToMain()"
+      alt="Logo"
+    >
+      <img src="favicon.png" class="logo" />
+    </button>
     <h1 *ngIf="!isSearchSubmitted" class="headline">
       Lumana Interview Exercise
     </h1>
