@@ -40,6 +40,33 @@
   border-color: #4285f4;
 }
 
+.search-suggestions {
+  padding: 0;
+  width: 20%;
+  overflow-y: auto;
+  max-height: 33vh;
+  position: absolute;
+  margin-top: 15.65vh;
+  font-family: cursive;
+  border: 1px solid #ccc;
+  background-color: white;
+
+  &.after-search {
+    height: 33vh;
+    margin-left: 1.3vw;
+    margin-top: 41.45vh;
+  }
+}
+
+.search-suggestions li {
+  padding: 8px;
+  cursor: pointer;
+}
+
+.search-suggestions li:hover {
+  background-color: #f0f0f0;
+}
+
 .search-button {
   font-size: 1em;
   color: white;

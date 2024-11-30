@@ -8,12 +8,18 @@ import { PhotoEffects } from './app/store/effects';
 import { RouterModule } from '@angular/router';
 import { importProvidersFrom } from '@angular/core';
 import { routes } from './app/app.routes';
+import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 
 bootstrapApplication(AppComponent, {
   ...appConfig,
   providers: [
     provideEffects(PhotoEffects),
     provideStore({ photo: photoReducer }),
-    importProvidersFrom(RouterModule.forRoot(routes)),
+    importProvidersFrom(
+      StoreDevtoolsModule.instrument({
+        maxAge: 25,
+      })
+    ),
+    importProvidersFrom(RouterModule.forRoot(routes)),  
   ],
 }).catch((err) => console?.error(err));

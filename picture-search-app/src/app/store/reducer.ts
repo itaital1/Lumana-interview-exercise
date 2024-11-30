@@ -9,6 +9,7 @@ export interface State {
   error: boolean;
   photos: Photo[];
   loading: boolean;
+  searchQuery: string;
 }
 
 export const initialState: State = {
@@ -18,6 +19,7 @@ export const initialState: State = {
   photos: [],
   error: false,
   loading: false,
+  searchQuery: '',
 };
 
 export const photoReducer = createReducer(
@@ -31,8 +33,8 @@ export const photoReducer = createReducer(
     ...state,
     total,
     error: false,
-    loading: false,  
-    photos: results,
+    loading: false,
+    photos: [...state.photos, ...results],
     skip: state.skip + state.top,
   })),
   on(PhotoActions.searchPhotosFailure, (state) => ({

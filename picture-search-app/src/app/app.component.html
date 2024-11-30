@@ -19,12 +19,29 @@
       [(ngModel)]="searchLiteral"
       placeholder="Enter image description"
       (keydown.enter)="onSearch(searchLiteral)"
+      (focus)="onFocusInput()"
+      (blur)="onBlurInput()"
+      (input)="filterSearchSuggestions()"
       class="search-input"
     />
     <button (click)="onSearch(searchLiteral)" class="search-button">
       Search
     </button>
+
+    <ul
+      *ngIf="showSuggestions"
+      class="search-suggestions"
+      [ngClass]="isSearchSubmitted ? 'after-search' : null"
+    >
+      <li
+        *ngFor="let suggestion of searchSuggestions"
+        (click)="selectSuggestion(suggestion)"
+      >
+        {{ suggestion }}
+      </li>
+    </ul>
   </div>
+
   <photo-library
     [searchLiteral]="searchLiteral"
     *ngIf="isSearchSubmitted"
