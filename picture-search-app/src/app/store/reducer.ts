@@ -34,7 +34,7 @@ export const photoReducer = createReducer(
     total,
     error: false,
     loading: false,
-    photos: [...state.photos, ...results],
+    photos: [...state.photos],
     skip: state.skip + state.top,
   })),
   on(PhotoActions.searchPhotosFailure, (state) => ({
