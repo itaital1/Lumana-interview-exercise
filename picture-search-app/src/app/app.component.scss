@@ -48,8 +48,8 @@
   position: absolute;
   margin-top: 15.65vh;
   font-family: cursive;
-  border: 1px solid #ccc;
   background-color: white;
+  border: 0.05em solid #ccc;
 
   &.after-search {
     height: 33vh;
@@ -59,7 +59,7 @@
 }
 
 .search-suggestions li {
-  padding: 8px;
+  padding: 2.6%;
   cursor: pointer;
 }
 
@@ -73,8 +73,8 @@
   cursor: pointer;
   border-radius: 2em;
   padding: 0.6em 1.2em;
-  border: 0.06em solid #4285f4;
   background-color: #4285f4;
+  border: 0.06em solid #4285f4;
   transition: background-color 0.2s ease;
 }
 

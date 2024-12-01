@@ -12,3 +12,4 @@ export const searchPhotosSuccess = createAction(
 );
 
 export const searchPhotosFailure = createAction('Search Photos Failure');
+export const clearPhotos = createAction('[Photo] Clear Photos');

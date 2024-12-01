@@ -1,9 +1,9 @@
 import { Component } from '@angular/core';
-import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-import { PhotoLibraryComponent } from './components/photo-library/photo-library.component';
+import { CommonModule } from '@angular/common';
+import { StoreModule } from '@ngrx/store';
 import { ActivatedRoute, Router, RouterModule } from '@angular/router';
-import { Store, StoreModule } from '@ngrx/store';
+import { PhotoLibraryComponent } from './components/photo-library/photo-library.component';
 
 @Component({
   selector: 'app-root',
@@ -20,10 +20,10 @@ import { Store, StoreModule } from '@ngrx/store';
 })
 export class AppComponent {
   searchLiteral: string = '';
-  searchSuggestions: string[] = [];
-  allSearchSuggestions: string[] = [];
   showSuggestions: boolean = false;
   isSearchSubmitted: boolean = false;
+  searchSuggestions: string[] = [];
+  allSearchSuggestions: string[] = [];
   private readonly MAX_RECENT_SEARCHES = 6;
 
   ngOnInit(): void {
@@ -68,7 +68,7 @@ export class AppComponent {
       }
       this.saveRecentSearches();
       this.showSuggestions = false;
-      
+
       this.router.navigate([], {
         queryParams: { search: this.searchLiteral },
       });
@@ -109,7 +109,8 @@ export class AppComponent {
   }
 
   selectSuggestion(suggestion: string) {
-    this.searchLiteral = suggestion;
     this.searchSuggestions = [];
+    this.searchLiteral = suggestion;
+    this.onSearch(this.searchLiteral);
   }
 }

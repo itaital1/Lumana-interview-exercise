@@ -11,7 +11,11 @@
   </div>
 
   <ng-template #showPhotos>
-    <div *ngIf="!(loading$ | async)" class="photos-container">
+    <div
+      *ngIf="!(loading$ | async)"
+      class="photos-container"
+      (scroll)="onScroll()"
+    >
       <div class="photo-gallery">
         <div *ngFor="let photo of photos$ | async" class="photo-card">
           <img
@@ -21,15 +25,10 @@
           />
         </div>
       </div>
-
-      <div *ngIf="total$ | async as total" class="pagination">
-        <button (click)="onPageChange('previous')" [disabled]="skip <= 0">
-          Previous
-        </button>
-        <span>{{ skip / top + 1 }} / {{ total / top | number : "1.0-0" }}</span>
-        <button (click)="onPageChange('next')" [disabled]="skip + top >= total">
-          Next
-        </button>
+    </div>
+    <div *ngIf="total$ | async as total">
+      <div class="photo-count">
+        <span>{{ (photos$ | async)?.length }} / {{ total }}</span>
       </div>
     </div>
   </ng-template>

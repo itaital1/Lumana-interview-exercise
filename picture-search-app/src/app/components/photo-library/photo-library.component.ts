@@ -1,28 +1,21 @@
-import {
-  Component,
-  Input,
-  OnChanges,
-  OnInit,
-  SimpleChanges,
-} from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Observable } from 'rxjs';
-import * as PhotoActions from '../../store/actions';
-import * as fromPhoto from '../../store/selectors';
+import { Store } from '@ngrx/store';
 import { CommonModule } from '@angular/common';
-import { ActivatedRoute, Router } from '@angular/router';
+import { ActivatedRoute } from '@angular/router';
+import * as fromPhoto from '../../store/selectors';
+import * as PhotoActions from '../../store/actions';
+import { Component, Input, OnInit } from '@angular/core';
 
 @Component({
+  standalone: true,
   selector: 'photo-library',
   templateUrl: './photo-library.component.html',
   styleUrls: ['./photo-library.component.scss'],
-  standalone: true,
-  imports: [CommonModule],
+  imports: [CommonModule], // Add InfiniteScrollDirective to imports
 })
 export class PhotoLibraryComponent implements OnInit {
   @Input() searchLiteral: string = '';
-
-  top = 20;
+  top = 30;
   skip = 0;
   skip$: Observable<number>;
   photos$: Observable<any[]>;
@@ -40,6 +33,7 @@ export class PhotoLibraryComponent implements OnInit {
 
   ngOnInit(): void {
     this.route.queryParams.subscribe((params) => {
+      this.store.dispatch(PhotoActions.clearPhotos());
       this.searchLiteral = params['search'] || '';
       if (this.searchLiteral.length > 0) {
         this.onSearch(this.searchLiteral);
@@ -49,20 +43,31 @@ export class PhotoLibraryComponent implements OnInit {
 
   onSearch(query: string): void {
     this.store.dispatch(
-      PhotoActions.searchPhotos({ query, top: 20, skip: this.skip })
+      PhotoActions.searchPhotos({ query, top: this.top, skip: this.skip })
     );
   }
 
-  onPageChange(direction: 'previous' | 'next'): void {
-    if (direction === 'previous' && this.skip >= 20) {
-      this.skip -= 20;
-    } else if (direction === 'next') {
-      this.skip += 20;
+  onScroll(): void {
+    const container = document.querySelector('.photos-container');
+    if (container) {
+      const scrollPosition = container.scrollTop + container.clientHeight;
+      const scrollHeight = container.scrollHeight;
+
+      // If the user has scrolled to the bottom or near the bottom, load more photos
+      if (scrollPosition >= scrollHeight - 100) {
+        this.loadMorePhotos();
+      }
+    } else {
+      console.error('Scroll container not found!');
     }
+  }
+
+  loadMorePhotos(): void {
+    this.skip += this.top;
     this.store.dispatch(
       PhotoActions.searchPhotos({
         query: this.searchLiteral,
-        top: 20,
+        top: this.top,
         skip: this.skip,
       })
     );
